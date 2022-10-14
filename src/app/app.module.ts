@@ -19,9 +19,13 @@ import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
 import { MasterDataComponent } from './pages/master-data/master-data.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { DevExtremeModule } from 'devextreme-angular';
+import { ColorService, DxStoreService, GetService } from './services';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RequestInterceptor } from './services/httprequest.interceptor';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MasterDataComponent],
   imports: [
     BrowserModule,
     SideNavOuterToolbarModule,
@@ -35,8 +39,18 @@ import { TranslateModule } from '@ngx-translate/core';
     UnauthenticatedContentModule,
     AppRoutingModule,
     TranslateModule.forRoot(),
+    DevExtremeModule,
+    HttpClientModule,
   ],
-  providers: [AuthService, ScreenService, AppInfoService],
+  providers: [
+    AuthService,
+    ScreenService,
+    AppInfoService,
+    GetService,
+    DxStoreService,
+    ColorService,
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
