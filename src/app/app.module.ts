@@ -2,16 +2,26 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { SideNavOuterToolbarModule, SideNavInnerToolbarModule, SingleCardModule } from './layouts';
-import { FooterModule, ResetPasswordFormModule, CreateAccountFormModule, ChangePasswordFormModule, LoginFormModule } from './shared/components';
+import {
+  SideNavOuterToolbarModule,
+  SideNavInnerToolbarModule,
+  SingleCardModule,
+} from './layouts';
+import {
+  FooterModule,
+  ResetPasswordFormModule,
+  CreateAccountFormModule,
+  ChangePasswordFormModule,
+  LoginFormModule,
+} from './shared/components';
 import { AuthService, ScreenService, AppInfoService } from './shared/services';
 import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
+import { MasterDataComponent } from './pages/master-data/master-data.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     SideNavOuterToolbarModule,
@@ -23,13 +33,10 @@ import { AppRoutingModule } from './app-routing.module';
     ChangePasswordFormModule,
     LoginFormModule,
     UnauthenticatedContentModule,
-    AppRoutingModule
+    AppRoutingModule,
+    TranslateModule.forRoot(),
   ],
-  providers: [
-    AuthService,
-    ScreenService,
-    AppInfoService
-  ],
-  bootstrap: [AppComponent]
+  providers: [AuthService, ScreenService, AppInfoService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
