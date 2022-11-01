@@ -28,13 +28,13 @@ export class BaseService {
     return options;
   }
   protected get<T>(url: string, options?: Object): Promise<T[]> {
-    // options = this.setToken(options);
-    console.log(options);
+    options = this.setToken(options);
     return lastValueFrom(
       this.httpClient.get<T[]>(environment.apiUrl + url, options)
     );
   }
   protected post<T>(url: string, payload: any, options?: Object): Promise<T> {
+    payload.merchantId = '1a871d90-8718-4de7-96e4-e6feae2ee6ef';
     this.setToken(options);
     return lastValueFrom(
       this.httpClient.post<T>(environment.apiUrl + url, payload, options)

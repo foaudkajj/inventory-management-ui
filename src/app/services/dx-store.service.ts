@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastService } from './toast.service';
-import { DxStoreOptions } from '../models';
-import { GetService } from './get.service';
 import DataSource from 'devextreme/data/data_source';
-import CustomStore from 'devextreme/data/custom_store';
+import CustomStore, { Options } from 'devextreme/data/custom_store';
 
 @Injectable({
   providedIn: 'root',
@@ -12,35 +9,24 @@ import CustomStore from 'devextreme/data/custom_store';
 export class DxStoreService {
   constructor(
     private toast: ToastService,
-    private router: Router,
-    private getService: GetService
   ) {}
 
-  getStore(storeOptions: DxStoreOptions): DataSource {
+  getDS(storeOptions: Options): DataSource {
     return new DataSource({
       store: new CustomStore({
-        key: storeOptions.Key,
+        key: storeOptions.key,
         loadMode: 'raw',
         load: (options) => {
-          return this.getService.get('COLOR')?.getAll() ?? [];
+          return storeOptions.load(options);
         },
         insert: (values) => {
-          return (
-            this.getService.get('COLOR')?.insert(values) ??
-            Promise.resolve(undefined)
-          );
+          return storeOptions.insert!(values);
         },
         update: (key: string, values) => {
-          return (
-            this.getService.get('COLOR')?.modify(key, values) ??
-            Promise.resolve(undefined)
-          );
+          return storeOptions.update!(key, values);
         },
         remove: (key: string) => {
-          return (
-            this.getService.get('COLOR')?.remove(key) ??
-            Promise.resolve(undefined)
-          );
+          return storeOptions.remove!(key);
         },
         onInserted: (values: any, key: string) => {
           if (storeOptions.onInserted) {
@@ -48,8 +34,9 @@ export class DxStoreService {
           }
           if (!values.IsError) this.toast.showSuccessMessage();
         },
-        onLoaded: (result: Array<any>) => {
-          if (storeOptions.onLoaded) storeOptions?.onLoaded(result);
+        onLoaded: (result: Array<any>, loadOptions) => {
+          if (storeOptions.onLoaded)
+            storeOptions?.onLoaded(result, loadOptions);
         },
         onRemoved: (key: string) => {
           if (storeOptions.onRemoved) {
