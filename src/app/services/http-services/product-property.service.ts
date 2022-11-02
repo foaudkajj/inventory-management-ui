@@ -11,7 +11,7 @@ export class ProductPropertyService extends BaseService {
   }
 
   getAll(): Promise<ProductProperty[]> {
-    let result$ = this.get<ProductProperty>(`product-properties/get`);
+    let result$ = this.get<ProductProperty[]>(`product-properties/get`);
     return result$;
   }
 

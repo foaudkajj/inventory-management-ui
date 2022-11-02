@@ -11,7 +11,7 @@ export class BranchService extends BaseService {
   }
 
   getAll(): Promise<Branch[]> {
-    let result$ = this.get<Branch>(`branches/get`);
+    let result$ = this.get<Branch[]>(`branches/get`);
     return result$;
   }
 

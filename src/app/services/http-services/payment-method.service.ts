@@ -11,7 +11,7 @@ export class PaymentMethodService extends BaseService {
   }
 
   getAll(): Promise<PaymentMethod[]> {
-    let result$ = this.get<PaymentMethod>(`payment-methods/get`);
+    let result$ = this.get<PaymentMethod[]>(`payment-methods/get`);
     return result$;
   }
 

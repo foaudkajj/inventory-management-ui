@@ -11,7 +11,7 @@ export class ColorService extends BaseService {
   }
 
   getAll(): Promise<Color[]> {
-    let result$ = this.get<Color>(`colors/get`);
+    let result$ = this.get<Color[]>(`colors/get`);
     return result$;
   }
 

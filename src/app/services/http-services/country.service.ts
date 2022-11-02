@@ -11,7 +11,7 @@ export class CountryService extends BaseService {
   }
 
   getAll(): Promise<Country[]> {
-    let result$ = this.get<Country>(`countries/get`);
+    let result$ = this.get<Country[]>(`countries/get`);
     return result$;
   }
 

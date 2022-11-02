@@ -11,7 +11,7 @@ export class CityService extends BaseService {
   }
 
   getAll(): Promise<City[]> {
-    let result$ = this.get<City>(`cities/get`);
+    let result$ = this.get<City[]>(`cities/get`);
     return result$;
   }
 

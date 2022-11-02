@@ -11,7 +11,7 @@ export class ProductTypeService extends BaseService {
   }
 
   getAll(): Promise<ProductType[]> {
-    let result$ = this.get<ProductType>(`product-types/get`);
+    let result$ = this.get<ProductType[]>(`product-types/get`);
     return result$;
   }
 

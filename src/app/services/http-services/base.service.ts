@@ -27,10 +27,10 @@ export class BaseService {
     }
     return options;
   }
-  protected get<T>(url: string, options?: Object): Promise<T[]> {
+  protected get<T>(url: string, options?: Object): Promise<T> {
     options = this.setToken(options);
     return lastValueFrom(
-      this.httpClient.get<T[]>(environment.apiUrl + url, options)
+      this.httpClient.get<T>(environment.apiUrl + url, options)
     );
   }
   protected post<T>(url: string, payload: any, options?: Object): Promise<T> {
