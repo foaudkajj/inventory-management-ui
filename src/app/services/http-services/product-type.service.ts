@@ -10,8 +10,8 @@ export class ProductTypeService extends BaseService {
     super(httpClient, router);
   }
 
-  getAll(): Promise<ProductType[]> {
-    let result$ = this.get<ProductType[]>(`product-types/get`);
+  getAll(options = {}): Promise<ProductType[]> {
+    let result$ = this.get<ProductType[]>(`product-types/get`, options);
     return result$;
   }
 

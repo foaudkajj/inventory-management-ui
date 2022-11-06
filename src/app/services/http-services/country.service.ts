@@ -10,8 +10,8 @@ export class CountryService extends BaseService {
     super(httpClient, router);
   }
 
-  getAll(): Promise<Country[]> {
-    let result$ = this.get<Country[]>(`countries/get`);
+  getAll(options = {}): Promise<Country[]> {
+    let result$ = this.get<Country[]>(`countries/get`, options);
     return result$;
   }
 

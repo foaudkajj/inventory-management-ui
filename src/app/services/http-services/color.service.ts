@@ -10,8 +10,8 @@ export class ColorService extends BaseService {
     super(httpClient, router);
   }
 
-  getAll(): Promise<Color[]> {
-    let result$ = this.get<Color[]>(`colors/get`);
+  getAll(options = {}): Promise<Color[]> {
+    let result$ = this.get<Color[]>(`colors/get`, options);
     return result$;
   }
 

@@ -10,8 +10,8 @@ export class CityService extends BaseService {
     super(httpClient, router);
   }
 
-  getAll(): Promise<City[]> {
-    let result$ = this.get<City[]>(`cities/get`);
+  getAll(options = {}): Promise<City[]> {
+    let result$ = this.get<City[]>(`cities/get`, options);
     return result$;
   }
 

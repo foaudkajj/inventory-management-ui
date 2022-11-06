@@ -10,8 +10,11 @@ export class ProductPropertyService extends BaseService {
     super(httpClient, router);
   }
 
-  getAll(): Promise<ProductProperty[]> {
-    let result$ = this.get<ProductProperty[]>(`product-properties/get`);
+  getAll(options = {}): Promise<ProductProperty[]> {
+    let result$ = this.get<ProductProperty[]>(
+      `product-properties/get`,
+      options
+    );
     return result$;
   }
 

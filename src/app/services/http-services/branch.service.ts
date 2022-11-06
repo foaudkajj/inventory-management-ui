@@ -10,8 +10,8 @@ export class BranchService extends BaseService {
     super(httpClient, router);
   }
 
-  getAll(): Promise<Branch[]> {
-    let result$ = this.get<Branch[]>(`branches/get`);
+  getAll(options = {}): Promise<Branch[]> {
+    let result$ = this.get<Branch[]>(`branches/get`, options);
     return result$;
   }
 

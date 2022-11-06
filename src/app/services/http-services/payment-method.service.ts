@@ -10,8 +10,8 @@ export class PaymentMethodService extends BaseService {
     super(httpClient, router);
   }
 
-  getAll(): Promise<PaymentMethod[]> {
-    let result$ = this.get<PaymentMethod[]>(`payment-methods/get`);
+  getAll(options = {}): Promise<PaymentMethod[]> {
+    let result$ = this.get<PaymentMethod[]>(`payment-methods/get`, options);
     return result$;
   }
 
