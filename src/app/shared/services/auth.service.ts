@@ -1,22 +1,15 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
-
-export interface IUser {
-  email: string;
-  avatarUrl?: string
-}
+import { LoginResponse } from 'src/app/models';
+import { AuthHttpService } from 'src/app/services';
 
 const defaultPath = '/';
-const defaultUser = {
-  email: 'sandra@example.com',
-  avatarUrl: 'https://js.devexpress.com/Demos/WidgetsGallery/JSDemos/images/employees/06.png'
-};
 
 @Injectable()
 export class AuthService {
-  private _user: IUser | null = defaultUser;
+  private _user: LoginResponse | null = null;
   get loggedIn(): boolean {
-    return !!this._user;
+    return !!this._user || !!sessionStorage.getItem('Authorization');
   }
 
   private _lastAuthenticatedPath: string = defaultPath;
@@ -24,25 +17,28 @@ export class AuthService {
     this._lastAuthenticatedPath = value;
   }
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private authHttpService: AuthHttpService
+  ) {}
 
   async logIn(email: string, password: string) {
-
     try {
-      // Send request
-      console.log(email, password);
-      this._user = { ...defaultUser, email };
+      const user = await this.authHttpService.login({
+        username: email,
+        password: password,
+      });
+      this._user = user;
+      sessionStorage.setItem('Authorization', user.token);
       this.router.navigate([this._lastAuthenticatedPath]);
-
       return {
         isOk: true,
-        data: this._user
+        data: this._user,
       };
-    }
-    catch {
+    } catch {
       return {
         isOk: false,
-        message: "Authentication failed"
+        message: 'Authentication failed',
       };
     }
   }
@@ -53,13 +49,12 @@ export class AuthService {
 
       return {
         isOk: true,
-        data: this._user
+        data: this._user,
       };
-    }
-    catch {
+    } catch {
       return {
         isOk: false,
-        data: null
+        data: null,
       };
     }
   }
@@ -71,13 +66,12 @@ export class AuthService {
 
       this.router.navigate(['/create-account']);
       return {
-        isOk: true
+        isOk: true,
       };
-    }
-    catch {
+    } catch {
       return {
         isOk: false,
-        message: "Failed to create account"
+        message: 'Failed to create account',
       };
     }
   }
@@ -88,15 +82,14 @@ export class AuthService {
       console.log(email, recoveryCode);
 
       return {
-        isOk: true
+        isOk: true,
       };
-    }
-    catch {
+    } catch {
       return {
         isOk: false,
-        message: "Failed to change password"
-      }
-    };
+        message: 'Failed to change password',
+      };
+    }
   }
 
   async resetPassword(email: string) {
@@ -105,18 +98,18 @@ export class AuthService {
       console.log(email);
 
       return {
-        isOk: true
+        isOk: true,
       };
-    }
-    catch {
+    } catch {
       return {
         isOk: false,
-        message: "Failed to reset password"
+        message: 'Failed to reset password',
       };
     }
   }
 
   async logOut() {
+    sessionStorage.removeItem('Authorization');
     this._user = null;
     this.router.navigate(['/login-form']);
   }
@@ -124,7 +117,7 @@ export class AuthService {
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const isLoggedIn = this.authService.loggedIn;
@@ -132,7 +125,7 @@ export class AuthGuardService implements CanActivate {
       'login-form',
       'reset-password',
       'create-account',
-      'change-password/:recoveryCode'
+      'change-password/:recoveryCode',
     ].includes(route.routeConfig?.path || defaultPath);
 
     if (isLoggedIn && isAuthForm) {
@@ -146,7 +139,8 @@ export class AuthGuardService implements CanActivate {
     }
 
     if (isLoggedIn) {
-      this.authService.lastAuthenticatedPath = route.routeConfig?.path || defaultPath;
+      this.authService.lastAuthenticatedPath =
+        route.routeConfig?.path || defaultPath;
     }
 
     return isLoggedIn || isAuthForm;

@@ -10,4 +10,6 @@ export type SERVICES =
   | 'BRANCH'
   | 'PRODUCT_PROPERTY'
   | 'COUNTRY'
-  | 'CITY';
+  | 'CITY'
+  | 'USER'
+  | 'ROLE';

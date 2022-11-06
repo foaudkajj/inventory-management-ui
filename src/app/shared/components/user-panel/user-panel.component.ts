@@ -3,14 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { DxListModule } from 'devextreme-angular/ui/list';
 import { DxContextMenuModule } from 'devextreme-angular/ui/context-menu';
-import { IUser } from '../../services/auth.service';
+import { LoginResponse } from 'src/app/models';
 
 @Component({
   selector: 'app-user-panel',
   templateUrl: 'user-panel.component.html',
-  styleUrls: ['./user-panel.component.scss']
+  styleUrls: ['./user-panel.component.scss'],
 })
-
 export class UserPanelComponent {
   @Input()
   menuItems: any;
@@ -19,18 +18,14 @@ export class UserPanelComponent {
   menuMode!: string;
 
   @Input()
-  user!: IUser | null;
+  user!: LoginResponse | null;
 
   constructor() {}
 }
 
 @NgModule({
-  imports: [
-    DxListModule,
-    DxContextMenuModule,
-    CommonModule
-  ],
-  declarations: [ UserPanelComponent ],
-  exports: [ UserPanelComponent ]
+  imports: [DxListModule, DxContextMenuModule, CommonModule],
+  declarations: [UserPanelComponent],
+  exports: [UserPanelComponent],
 })
-export class UserPanelModule { }
+export class UserPanelModule {}

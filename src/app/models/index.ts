@@ -14,3 +14,6 @@ export * from './role.model';
 export * from './sale.model';
 export * from './unit.model';
 export * from './user.model';
+export * from './responses/login.response';
+export * from './requests/login.request';
+export * from './requests/assing-properties.request';
