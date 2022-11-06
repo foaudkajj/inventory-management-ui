@@ -1,21 +1,26 @@
 export const navigation = [
   {
-    text: 'Home',
+    text: 'navigation.home',
     path: '/home',
-    icon: 'home'
+    icon: 'home',
   },
   {
-    text: 'Examples',
-    icon: 'folder',
-    items: [
-      {
-        text: 'Profile',
-        path: '/profile'
-      },
-      {
-        text: 'Tasks',
-        path: '/tasks'
-      }
-    ]
-  }
+    text: 'navigation.master-data',
+    path: '/master-data',
+    icon: 'fields',
+  },
+  {
+    text: 'navigation.users',
+    path: '/users',
+    icon: 'user',
+  },
+  {
+    text: 'navigation.profile',
+    path: '/profile',
+  },
+  // {
+  //   text: 'Examples',
+  //   icon: 'folder',
+  //   items: [],
+  // },
 ];

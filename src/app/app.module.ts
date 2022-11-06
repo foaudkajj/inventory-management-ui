@@ -20,12 +20,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { MasterDataComponent } from './pages/master-data/master-data.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DevExtremeModule } from 'devextreme-angular';
-import { ColorService, DxStoreService, GetService } from './services';
+import {
+  AuthHttpService,
+  BranchService,
+  CityService,
+  ColorService,
+  CountryService,
+  DxStoreService,
+  GetService,
+  PaymentMethodService,
+  ProductPropertyService,
+  ProductTypeService,
+  RoleService,
+} from './services';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from './services/httprequest.interceptor';
+import { UsersComponent } from './pages/users/users.component';
 
 @NgModule({
-  declarations: [AppComponent, MasterDataComponent],
+  declarations: [AppComponent, MasterDataComponent, UsersComponent],
   imports: [
     BrowserModule,
     SideNavOuterToolbarModule,
@@ -49,6 +62,14 @@ import { RequestInterceptor } from './services/httprequest.interceptor';
     GetService,
     DxStoreService,
     ColorService,
+    BranchService,
+    PaymentMethodService,
+    ProductPropertyService,
+    ProductTypeService,
+    CountryService,
+    CityService,
+    RoleService,
+    AuthHttpService,
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

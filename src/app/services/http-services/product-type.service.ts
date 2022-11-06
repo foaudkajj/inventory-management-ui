@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
-import { ProductType } from 'src/app/models';
+import { AssignProperties, ProductType } from 'src/app/models';
 
 @Injectable()
 export class ProductTypeService extends BaseService {
@@ -27,6 +27,11 @@ export class ProductTypeService extends BaseService {
 
   remove(key: string): Promise<void> {
     let result$ = this.delete<void>(`product-types/delete/${key}`);
+    return result$;
+  }
+
+  assignProperties(payload: AssignProperties) {
+    let result$ = this.post<void>(`product-types/assign-properties`, payload);
     return result$;
   }
 }
