@@ -177,10 +177,6 @@ export class MasterDataComponent implements OnInit {
       this.ds = this.dxStore.getDS({
         key: 'id',
         load: async (options) => {
-          const t = await this.getService
-            .get(serviceName)
-            ?.getAll(serviceFilter);
-          console.log(t);
           return this.getService.get(serviceName)?.getAll(serviceFilter) ?? [];
         },
         insert: (values) => {
@@ -277,13 +273,6 @@ export class MasterDataComponent implements OnInit {
     }
   }
 
-  getMasterDataValue(data) {
-    if (this.selectedDataType === 3) {
-      console.log(data.productTypePropertyList?.map((m) => m.id));
-      return data.productTypePropertyList?.map((m) => m.id);
-    }
-  }
-
   masterDetailExpanded(e) {
     if (this.selectedDataType === 3) {
       const productTypeList: ProductType[] = this.grid.instance
@@ -294,10 +283,6 @@ export class MasterDataComponent implements OnInit {
         productType?.productTypePropertyList.map((m) => m.productPropertyId) ??
         [];
     }
-    console.log();
-    // console.log(this.masterDetailDS.store().load());
-    console.log(e);
-    // this.masterDetailValue
   }
 
   async loadLookups() {
