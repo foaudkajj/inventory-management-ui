@@ -11,3 +11,4 @@ export * from './http-services/country.service';
 export * from './http-services/city.service';
 export * from './http-services/role.service';
 export * from './http-services/auth-http.service';
+export * from './http-services/user.service';

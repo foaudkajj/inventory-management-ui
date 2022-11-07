@@ -7,6 +7,8 @@ import { CountryService } from './http-services/country.service';
 import { PaymentMethodService } from './http-services/payment-method.service';
 import { ProductPropertyService } from './http-services/product-property.service';
 import { ProductTypeService } from './http-services/product-type.service';
+import { RoleService } from './http-services/role.service';
+import { UserService } from './http-services/user.service';
 
 @Injectable()
 export class GetService {
@@ -17,7 +19,9 @@ export class GetService {
     private productTypeService: ProductTypeService,
     private productPropertyService: ProductPropertyService,
     private countryService: CountryService,
-    private cityService: CityService
+    private cityService: CityService,
+    private roleService: RoleService,
+    private userService: UserService
   ) {}
 
   get(serviceName: SERVICES) {
@@ -42,6 +46,12 @@ export class GetService {
 
       case 'CITY':
         return this.cityService;
+
+      case 'ROLE':
+        return this.roleService;
+
+      case 'USER':
+        return this.userService;
 
       default:
         return undefined;

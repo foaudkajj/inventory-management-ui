@@ -32,6 +32,7 @@ import {
   ProductPropertyService,
   ProductTypeService,
   RoleService,
+  UserService,
 } from './services';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from './services/httprequest.interceptor';
@@ -70,6 +71,7 @@ import { UsersComponent } from './pages/users/users.component';
     CityService,
     RoleService,
     AuthHttpService,
+    UserService,
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

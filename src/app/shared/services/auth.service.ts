@@ -30,6 +30,7 @@ export class AuthService {
       });
       this._user = user;
       sessionStorage.setItem('Authorization', user.token);
+      sessionStorage.setItem('user', JSON.stringify(user));
       this.router.navigate([this._lastAuthenticatedPath]);
       return {
         isOk: true,
@@ -45,12 +46,20 @@ export class AuthService {
 
   async getUser() {
     try {
-      // Send request
-
-      return {
-        isOk: true,
-        data: this._user,
-      };
+      const userJson = sessionStorage.getItem('user');
+      if (userJson) {
+        const user = JSON.parse(userJson);
+        this._user = user;
+        return {
+          isOk: true,
+          data: this._user,
+        };
+      } else {
+        return {
+          isOk: false,
+          data: null,
+        };
+      }
     } catch {
       return {
         isOk: false,
@@ -110,6 +119,7 @@ export class AuthService {
 
   async logOut() {
     sessionStorage.removeItem('Authorization');
+    sessionStorage.removeItem('user');
     this._user = null;
     this.router.navigate(['/login-form']);
   }

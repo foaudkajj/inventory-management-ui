@@ -1,0 +1,75 @@
+<h2 class="content-block">{{ "users.title" | translate }}</h2>
+
+<div class="content-block dx-card responsive-paddings">
+  <dx-data-grid
+    #grid
+    id="gridContainer"
+    [allowColumnResizing]="true"
+    [columnAutoWidth]="true"
+    [remoteOperations]="true"
+    [dataSource]="usersDS"
+    [showBorders]="true"
+    (onEditorPreparing)="onEditorPreparing($event)"
+  >
+    <dxo-editing
+      mode="popup"
+      [allowUpdating]="true"
+      [allowDeleting]="allowDeleting"
+      [allowAdding]="true"
+    >
+    </dxo-editing>
+    <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+
+    <dxi-column
+      [caption]="'id'"
+      dataField="id"
+      [visible]="false"
+      [formItem]="{ visible: false }"
+      dataType="string"
+    >
+    </dxi-column>
+
+    <dxi-column [caption]="'users.firstname' | translate" dataField="firstName">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column [caption]="'users.lastname' | translate" dataField="lastName">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column
+      [caption]="'users.gsm' | translate"
+      dataField="gsm"
+      dataType="string"
+      [editorOptions]="{ mask: '(999)999-9999' }"
+    >
+    </dxi-column>
+    <dxi-column [caption]="'users.username' | translate" dataField="username">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column [caption]="'users.status' | translate" dataField="status">
+      <dxo-lookup [dataSource]="userStatus" displayExpr="name" valueExpr="id"> </dxo-lookup>
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column
+      [caption]="'users.password' | translate"
+      dataField="password"
+      [visible]="false"
+    >
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+
+    <dxi-column [caption]="'users.email' | translate" dataField="email">
+      <dxi-validation-rule type="email"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column [caption]="'users.role' | translate" dataField="roleId">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+      <dxo-lookup [dataSource]="roles" displayExpr="name" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
+
+    <dxi-column [caption]="'users.branch' | translate" dataField="branchId">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+      <dxo-lookup [dataSource]="branches" displayExpr="name" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
+  </dx-data-grid>
+</div>
