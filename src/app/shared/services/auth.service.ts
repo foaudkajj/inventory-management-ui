@@ -9,7 +9,7 @@ const defaultPath = '/';
 export class AuthService {
   private _user: LoginResponse | null = null;
   get loggedIn(): boolean {
-    return !!this._user || !!sessionStorage.getItem('Authorization');
+    return !!sessionStorage.getItem('Authorization');
   }
 
   private _lastAuthenticatedPath: string = defaultPath;

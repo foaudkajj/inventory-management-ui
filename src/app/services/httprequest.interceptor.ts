@@ -14,11 +14,7 @@ import { ToastService } from './toast.service';
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
   private _pendingRequests = 0;
-  constructor(
-    private router: Router,
-    private toastService: ToastService
-  )
-  {}
+  constructor(private router: Router, private toastService: ToastService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -38,7 +34,9 @@ export class RequestInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(
       catchError((error) => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
-          this.router.navigate(['login']);
+          sessionStorage.removeItem('Authorization');
+          sessionStorage.removeItem('user');
+          this.router.navigate(['/login-form']);
         } else {
           if (error.error) {
             this.toastService.showErrorMessage(error.error.Message);
