@@ -17,3 +17,6 @@ export * from './user.model';
 export * from './responses/login.response';
 export * from './requests/login.request';
 export * from './requests/assing-properties.request';
+export * from './requests/assign-permissions.request';
+export * from './permission.model';
+export * from './role-permission.model';

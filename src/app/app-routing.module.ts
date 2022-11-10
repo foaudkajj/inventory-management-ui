@@ -12,6 +12,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
 import { MasterDataComponent } from './pages/master-data/master-data.component';
 import { UsersComponent } from './pages/users/users.component';
+import { RolesAssignmentComponent } from './pages/roles/roles-assignment.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'roles',
+    component: RolesAssignmentComponent,
     canActivate: [AuthGuardService],
   },
   {

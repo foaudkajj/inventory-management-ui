@@ -12,4 +12,6 @@ export type SERVICES =
   | 'COUNTRY'
   | 'CITY'
   | 'USER'
-  | 'ROLE';
+  | 'ROLE'
+  | 'MERCHANT'
+  | 'PERMISSION';

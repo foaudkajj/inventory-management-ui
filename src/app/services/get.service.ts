@@ -4,7 +4,9 @@ import { BranchService } from './http-services/branch.service';
 import { CityService } from './http-services/city.service';
 import { ColorService } from './http-services/color.service';
 import { CountryService } from './http-services/country.service';
+import { MerchantService } from './http-services/merchant.service';
 import { PaymentMethodService } from './http-services/payment-method.service';
+import { PermissionService } from './http-services/permission.service';
 import { ProductPropertyService } from './http-services/product-property.service';
 import { ProductTypeService } from './http-services/product-type.service';
 import { RoleService } from './http-services/role.service';
@@ -21,7 +23,9 @@ export class GetService {
     private countryService: CountryService,
     private cityService: CityService,
     private roleService: RoleService,
-    private userService: UserService
+    private userService: UserService,
+    private merchantService: MerchantService,
+    private permissionService: PermissionService
   ) {}
 
   get(serviceName: SERVICES) {
@@ -52,6 +56,12 @@ export class GetService {
 
       case 'USER':
         return this.userService;
+
+      case 'MERCHANT':
+        return this.merchantService;
+
+      case 'PERMISSION':
+        return this.permissionService;
 
       default:
         return undefined;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
-import { Role } from 'src/app/models';
+import { AssignPermissions, Role } from 'src/app/models';
 
 @Injectable()
 export class RoleService extends BaseService {
@@ -27,6 +27,11 @@ export class RoleService extends BaseService {
 
   remove(key: string): Promise<void> {
     let result$ = this.delete<void>(`roles/delete/${key}`);
+    return result$;
+  }
+
+  assignPermissions(payload: AssignPermissions) {
+    let result$ = this.post<void>(`roles/assign-permissions`, payload);
     return result$;
   }
 }

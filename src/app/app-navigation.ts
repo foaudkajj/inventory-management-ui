@@ -15,6 +15,11 @@ export const navigation = [
     icon: 'user',
   },
   {
+    text: 'navigation.roles',
+    path: '/roles',
+    icon: 'checklist',
+  },
+  {
     text: 'navigation.profile',
     path: '/profile',
   },

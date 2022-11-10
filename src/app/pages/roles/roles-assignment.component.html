@@ -1,0 +1,76 @@
+<h2 class="content-block">{{ "roles.title" | translate }}</h2>
+
+<div class="content-block dx-card responsive-paddings">
+  <dx-data-grid
+    #grid
+    id="gridContainer"
+    [allowColumnResizing]="true"
+    [columnAutoWidth]="true"
+    [remoteOperations]="true"
+    [dataSource]="rolesDS"
+    [showBorders]="true"
+    (onSelectionChanged)="handleSelectionChanged($event)"
+  >
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-master-detail [enabled]="false" template="detail"></dxo-master-detail>
+    <dxo-editing
+      mode="form"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      [allowAdding]="true"
+    >
+    </dxo-editing>
+    <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+
+    <dxi-column
+      [caption]="'id'"
+      dataField="id"
+      [visible]="false"
+      [formItem]="{ visible: false }"
+      dataType="string"
+    >
+    </dxi-column>
+
+    <dxi-column [caption]="'roles.name' | translate" dataField="name">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+
+    <div *dxTemplate="let role of 'detail'">
+      <dx-tree-list
+        #permissionGrid
+        [dataSource]="permissionsDS"
+        keyExpr="id"
+        [showRowLines]="true"
+        [showBorders]="true"
+        [columnAutoWidth]="true"
+        [wordWrapEnabled]="true"
+        [selectedRowKeys]="roleAssignedPermissions"
+      >
+        <dxo-selection mode="multiple" [recursive]="false"> </dxo-selection>
+
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxi-column
+          dataField="id"
+          [visible]="false"
+          [formItem]="{ visible: false }"
+        ></dxi-column>
+        <dxi-column dataField="name"> </dxi-column>
+        <dxi-column dataField="description"> </dxi-column>
+      </dx-tree-list>
+      <button
+        (click)="
+          assignPermissionsToRole(
+            permissionGrid?.selectedRowKeys ?? [],
+            role.data.id
+          )
+        "
+        mat-raised-button
+        color="accent"
+        style="float: right"
+      >
+        {{ "ADMIN_MODULE.ROLE_MANAGEMENT.SAVE" | translate }}
+      </button>
+    </div>
+  </dx-data-grid>
+</div>

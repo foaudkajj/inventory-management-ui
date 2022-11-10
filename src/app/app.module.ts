@@ -28,7 +28,9 @@ import {
   CountryService,
   DxStoreService,
   GetService,
+  MerchantService,
   PaymentMethodService,
+  PermissionService,
   ProductPropertyService,
   ProductTypeService,
   RoleService,
@@ -37,9 +39,15 @@ import {
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from './services/httprequest.interceptor';
 import { UsersComponent } from './pages/users/users.component';
+import { RolesAssignmentComponent } from './pages/roles/roles-assignment.component';
 
 @NgModule({
-  declarations: [AppComponent, MasterDataComponent, UsersComponent],
+  declarations: [
+    AppComponent,
+    MasterDataComponent,
+    UsersComponent,
+    RolesAssignmentComponent,
+  ],
   imports: [
     BrowserModule,
     SideNavOuterToolbarModule,
@@ -72,6 +80,8 @@ import { UsersComponent } from './pages/users/users.component';
     RoleService,
     AuthHttpService,
     UserService,
+    MerchantService,
+    PermissionService,
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
